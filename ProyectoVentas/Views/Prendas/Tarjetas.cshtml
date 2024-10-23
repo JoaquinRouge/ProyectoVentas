@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ProyectoVentas.Models.Prenda>
+
+<div class="card-container">
+
+@foreach(var i in Model)
+{
+    <div class="tarjeta">
+            <div>
+                <p>Nombre</p>
+                <p>@i.Nombre</p>
+            </div>
+            <div>
+                <p>Precio</p>
+                <p>$@i.precio</p>
+            </div>
+            <div>
+                <p>Talle</p>
+                <p>@i.talle</p>
+            </div>
+            <div>
+                <p>Descripcion</p>
+                <p>@i.Descripcion</p>
+            </div>
+            <div>
+                <p>Publico</p>
+                <p>@i.publico</p>
+            </div>
+            <button id="add-btn" class="add-btn"
+                    onclick="agregarCarrito('@i.Nombre', @i.precio, '@i.talle',
+                '@i.Descripcion', '@i.publico')">
+                Agregar
+            </button>
+    </div>
+}
+</div>

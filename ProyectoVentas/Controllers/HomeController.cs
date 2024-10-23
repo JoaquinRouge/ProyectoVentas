@@ -15,7 +15,7 @@ namespace ProyectoVentas.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Tarjetas", "Prendas"); // redirecciona al Controller de prendas y la vista Tarjeta
         }
 
         public IActionResult Privacy()

@@ -1,21 +1,19 @@
-﻿class Prenda {
-    constructor(id, nombre, precio, stock, talle, descripcion) { 
-        this.id = id;
+﻿let counterCart = document.getElementById("counterCart")
+class Prenda {
+    constructor(nombre,precio,talle,descripcion,publico) { 
         this.nombre = nombre;
         this.precio = precio;
-        this.stock = stock;
         this.talle = talle;
         this.descripcion = descripcion;
-    }
-
-    agregar(id, nombre, precio, stock, talle, descripcion) {
-        cartObjs.push(new Prenda(id,nombre,precio,stock,talle,descripcion))
+        this.publico = publico;
     }
 }
 let cartObjs = []
 
-let counterCart = document.getElementById("counterCart")
+function agregarCarrito(nombre, precio, talle, descripcion, publico) {
+    cartObjs.push(new Prenda(nombre, precio, talle, descripcion, publico));
+    counterCart.innerHTML = cartObjs.length;// Actualiza el contador después de agregar
+}
 
-counterCart.innerHTML = cartObjs.length
 
 
