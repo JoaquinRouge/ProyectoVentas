@@ -31,6 +31,12 @@ namespace ProyectoVentas.Controllers
 
             return View(prendas);
         }
+
+        public IActionResult Carrito()
+        {
+            var prendas = _context.Prendas;
+            return View(prendas);
+        }
         // GET: Prendas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
