@@ -14,20 +14,26 @@ class Prenda {
         return this.id == id;
     }
 }
-let cartObjs = []
+let cartObjs = [];
 
 //Agrega una Prenda al array cartObjs
 function agregarCarrito(id, nombre, precio, talle, descripcion, publico) { 
 
-    if (!buscarPrenda(id)){
+    //Chequea que la prenda no exista en el carrito.
+    if (!buscarPrenda(id)) {
+        //Si no existe la agrega.
         cartObjs.push(new Prenda(id, nombre, precio, talle, descripcion, publico));
     } else {
+        //Si existe lo notifica mediante alerta.
+        //TODO-- Sustituir la alerta por un mensaje en pantalla.
         alert("El producto que intentas agregar ya esta en el carrito.")
     }
-    counterCart.innerHTML = cartObjs.length;// Actualiza el contador después de agregar
+    counterCart.innerHTML = cartObjs.length;// Actualiza el contador después de agregar.
+    //Agrega la tarjeta al carrito.
     carrito.innerHTML += generarHtmlCarrito(nombre, precio, talle, descripcion, publico);
 };
 
+//Busca la prenda en el array del carrito (cartObjs)
 let buscarPrenda = (id) => {
     let encontrado = false
     let i = 0
@@ -41,6 +47,7 @@ let buscarPrenda = (id) => {
     return encontrado;
 };
 
+//Genera el HTML que se inserta en el carrito.
 function generarHtmlCarrito(nombre, precio, talle, descripcion, publico) {
     return `
     <div class="tarjeta">
