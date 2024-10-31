@@ -75,10 +75,27 @@ header {
     display:flex;
     flex-direction:column;
     gap:20px;
-    margin-top:50px;
 }
 
 #inp-number{
     width:40px;
     height:50px;
+    color:black;
+}
+
+.container-carrito{
+    display:flex;
+    margin-top:50px;
+    justify-content:space-between;
+}
+
+.finalizar{
+    border: 2px solid black;
+    padding: 10px;
+    border-radius:10px;
+    margin-right:240px;
+}
+
+.btn-finalizar{
+    border-radius:10px;
 }

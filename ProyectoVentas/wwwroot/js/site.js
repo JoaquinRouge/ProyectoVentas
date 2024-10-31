@@ -1,5 +1,7 @@
 ﻿const counterCart = document.getElementById("counterCart")
 const carrito = document.getElementById("carrito")
+const cantProds = document.getElementById("prods")
+const total = document.getElementById("precio")
 class Prenda {
     constructor(id, nombre, precio, talle, descripcion, publico) { 
         this.id = id;
@@ -32,9 +34,11 @@ function agregarCarrito(id, nombre, precio, talle, descripcion, publico) {
         //TODO-- Sustituir la alerta por un mensaje en pantalla.
         alert("El producto que intentas agregar ya esta en el carrito.")
     }
+    actualizarCantidadProductos()
+    actualizarPrecioTotal()
 };
 
-//Busca la prenda en el array del carrito (cartObjs)
+//Busca la prenda en el array del carrito que trae de la memoria.
 let buscarPrenda = (id) => {
     let encontrado = false
     let i = 0
@@ -49,10 +53,10 @@ let buscarPrenda = (id) => {
     return encontrado;
 };
 
-//Genera el HTML que se inserta en el carrito.z
+//Genera el HTML que se inserta en el carrito.
 function generarHtmlCarrito() {
     counterCart.innerHTML = JSON.parse(localStorage.getItem("cartObjs")).length;// Actualiza el contador.
-    let carritoMemoria = JSON.parse(localStorage.getItem("cartObjs"));// Carrito en localStorage.
+    let carritoMemoria = JSON.parse(localStorage.getItem("cartObjs"));// Trae el carrito en localStorage.
     let arrDibujado = [] //Array de los elementos que actualmente se muestran en pantalla.
     carritoMemoria.forEach(function (prenda) {
         //Chequea si la prenda que esta por dibujar ya esta dibujada y dado el caso no la dibuja.
@@ -83,7 +87,7 @@ function generarHtmlCarrito() {
                 </div>
                 <div>
                     <p>Cantidad</p>
-                    <input type="number" id="inp-number" min="0">
+                    <input type="number" id="inp-number" min="1" placeholder="0">
                 </div>
                 <button onclick="removePrendaCarrito(${prenda.id})">Eliminar</button>
         </div>
@@ -98,12 +102,34 @@ function removePrendaCarrito(id) {
     let array = JSON.parse(localStorage.getItem("cartObjs")); // Trae el carrito de la localStorage.
     
     let index = array.findIndex(prenda => prenda.id == id) //Encuentra el indice de la prenda con el id a remover.
-    array.splice(index,1) // Elimina la prenda del array
+    array.splice(index,1) // Elimina la prenda del array pasando por parametro el indice encontrado.
     localStorage.setItem("cartObjs", JSON.stringify(array)) // Vuelve a guardar el array en memoria.
 
     counterCart.innerHTML = JSON.parse(localStorage.getItem("cartObjs")).length;// Actualiza el contador.
+    actualizarCantidadProductos()
+    actualizarPrecioTotal()
     location.reload() // Recarga la pagina para ver los cambios en el carrito.
 
 }
 
-generarHtmlCarrito();//Agrega las tarjeta al carrito.
+function actualizarCantidadProductos() {
+    let array = JSON.parse(localStorage.getItem("cartObjs"))
+    let cant = 0
+    array.forEach(function () {
+        cant += 1
+    })
+    cantProds.innerHTML += cant;
+}
+
+function actualizarPrecioTotal() {
+    let array = JSON.parse(localStorage.getItem("cartObjs"))
+    let precioTotal = 0
+    array.forEach(function (prenda) {
+        precioTotal += prenda.precio
+    })
+    total.innerHTML += precioTotal
+}
+
+generarHtmlCarrito();//Agrega las tarjetas al carrito.
+actualizarCantidadProductos()
+actualizarPrecioTotal()
