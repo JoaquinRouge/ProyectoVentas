@@ -36,12 +36,16 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 <script>
-    const inputNumber = document.getElementById("inp-number")
+        let carritoMemoria = JSON.parse(localStorage.getItem("cartObjs"));
 
-        
-    inputNumber.addEventListener("keydown", function (e) {
-        e.preventDefault()
-    });
+        carritoMemoria.forEach(function (prenda) {
+            let inputNumber = document.getElementById(`inp-number-${prenda.id}`);
+
+            // Agrega un event listener para cada cambio en el valor del input
+            inputNumber.addEventListener("input", function (e) {
+                e.preventDefault()
+            });
+        });
 </script>
 </body>
 </html>
