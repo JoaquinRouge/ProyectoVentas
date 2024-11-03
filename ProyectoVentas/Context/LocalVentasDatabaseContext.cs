@@ -16,6 +16,8 @@ namespace ProyectoVentas.Context
         }
 
         public DbSet<Prenda> Prendas { get; set; }
+        public DbSet<Reposicion> Reposiciones { get; set; }
+
     }
 
 }
