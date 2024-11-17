@@ -1,13 +1,12 @@
 ﻿@model ProyectoVentas.Models.Reposicion
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle Reposición";
 }
-
-<h1>Details</h1>
-
+<br>
+<h1>Detalle de Reposición</h1>
+<br>
 <div>
-    <h4>Reposicion</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -31,6 +30,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Editar</a> |
+    <a asp-action="Index">Volver</a>
 </div>

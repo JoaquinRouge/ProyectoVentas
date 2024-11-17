@@ -48,6 +48,8 @@ namespace ProyectoVentas.Controllers
         // GET: Reposicion/Create
         public IActionResult Create()
         {
+            //Guardo los datos del combo/selct que se va a mostrar en la vista.
+            //Se muestra la descripcion del nombre, pero impactara el Id en la base de datos.
             ViewData["PrendaId"] = new SelectList(_context.Prendas, "Id", "Nombre");
             return View();
         }
@@ -59,19 +61,39 @@ namespace ProyectoVentas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,PrendaId,Cantidad,FechaReposicion")] Reposicion reposicion)
         {
+            //Pregunta si los datos que vienen del formulario (entran como parametro) estan todos completos
+            //si estan completos "ModelState.IsValid" es true.
             if (ModelState.IsValid)
             {
+                //Busca en la tabla Prendas, el id que recibe por parametro (reposicion.PrendaId)
+                //y lo guarda en la variable "prenda"
                 var prenda = _context.Prendas.Find(reposicion.PrendaId);
+                //si existe la prenda buscada armo la logica para actualizar stock
                 if (prenda != null)
                 {
                     //Suma la cantidad de prendas al stock
                     prenda.stock += reposicion.Cantidad;
-
                     //Actualiza la prenda en la base de datos
                     _context.Prendas.Update(prenda);
                 }
+                //actualiza la tabla de reposicion
                 _context.Add(reposicion);
+                //guarda los datos de reposicion
                 await _context.SaveChangesAsync();
+
+                //Elimino la notificacion de bajo stock de una prenda
+                var notificacionAEliminar = _context.NotificacionesStock
+                        .Where(n => n.PrendaId == prenda.Id) 
+                         .ToList();
+
+                if (notificacionAEliminar.Any()) // Verifica si existe antes de intentar eliminarlos
+                {
+                    // Elimina todas las notificaciones encontradas
+                    _context.NotificacionesStock.RemoveRange(notificacionAEliminar); 
+                    await _context.SaveChangesAsync(); // Guarda los cambios
+                }
+
+                //retorna la vista index
                 return RedirectToAction(nameof(Index));
             }
             ViewData["PrendaId"] = new SelectList(_context.Prendas, "Id", "Nombre", reposicion.PrendaId);
@@ -112,8 +134,13 @@ namespace ProyectoVentas.Controllers
                 try
                 {
                     // Obtenemos la reposición anterior 
+                    //el metodo AsNoTracking()
+                    // Evita que haya dos reposiciones con el mismo Id y se utiliza una
+                    // solo para consulta
+                    //si no se realiza esto no sabia que _context.Reposiciones
+                    //tenia que guardar
                     var reposicionAnt = await _context.Reposiciones
-                        .AsNoTracking()  // Evita que haya dos reposiciones con el mismo Id y se utiliza una solo para consulta
+                        .AsNoTracking()  
                         .FirstOrDefaultAsync(r => r.Id == reposicion.Id);
 
                     // Si no existe la reposición anterior, devolvemos NotFound
@@ -122,9 +149,14 @@ namespace ProyectoVentas.Controllers
                         return NotFound();
                     }
 
+                    //Se crea una variable para guardar la cantidad Anterior.
                     var cantRepoAnte = reposicionAnt.Cantidad;
                     
+                    //Se busca la prenda que va ser actualizada(en reposicion)
+           
                     var prenda = _context.Prendas.Find(reposicion.PrendaId);
+
+                    //Validacion de que la prenda existe
                     if (prenda != null)
                     {
                         //Resto  la cantidad  anterior de prendas que ingrese mal al stock
@@ -143,10 +175,6 @@ namespace ProyectoVentas.Controllers
                     _context.Update(reposicion);
                         await _context.SaveChangesAsync();
                     
-
-
-
-
                 }
                 catch (DbUpdateConcurrencyException)
                 {

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProyectoVentas.Context;
 
@@ -11,9 +12,11 @@ using ProyectoVentas.Context;
 namespace ProyectoVentas.Migrations
 {
     [DbContext(typeof(LocalVentasDatabaseContext))]
-    partial class LocalVentasDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20241108134121_InicialNotificacion")]
+    partial class InicialNotificacion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,34 +24,6 @@ namespace ProyectoVentas.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ProyectoVentas.Models.NotificacionStock", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PrendaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StockActual")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StockMinimo")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PrendaId");
-
-                    b.ToTable("NotificacionesStock");
-                });
 
             modelBuilder.Entity("ProyectoVentas.Models.Pedido", b =>
                 {
@@ -130,17 +105,6 @@ namespace ProyectoVentas.Migrations
                     b.HasIndex("PrendaId");
 
                     b.ToTable("Reposiciones");
-                });
-
-            modelBuilder.Entity("ProyectoVentas.Models.NotificacionStock", b =>
-                {
-                    b.HasOne("ProyectoVentas.Models.Prenda", "Prenda")
-                        .WithMany()
-                        .HasForeignKey("PrendaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Prenda");
                 });
 
             modelBuilder.Entity("ProyectoVentas.Models.Reposicion", b =>

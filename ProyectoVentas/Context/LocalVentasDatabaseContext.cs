@@ -18,6 +18,7 @@ namespace ProyectoVentas.Context
         public DbSet<Prenda> Prendas { get; set; }
         public DbSet<Reposicion> Reposiciones { get; set; }
         public DbSet<ProyectoVentas.Models.Pedido> Pedido { get; set; } = default!;
+        public DbSet<NotificacionStock> NotificacionesStock { get; set; }
 
     }
 

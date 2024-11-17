@@ -66,7 +66,7 @@ namespace ProyectoVentas.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,precio,stock,talle,Descripcion,publico,tipo")] Prenda prenda)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,precio,stock,talle,Descripcion,publico,tipo, StockMinimo")] Prenda prenda)
         {
             if (ModelState.IsValid)
             {
@@ -98,7 +98,7 @@ namespace ProyectoVentas.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,precio,stock,talle,Descripcion,publico,tipo")] Prenda prenda)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,precio,stock,talle,Descripcion,publico,tipo, StockMinimo")] Prenda prenda)
         {
             if (id != prenda.Id)
             {

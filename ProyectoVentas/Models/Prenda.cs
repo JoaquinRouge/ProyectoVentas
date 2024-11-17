@@ -17,5 +17,6 @@ namespace ProyectoVentas.Models
         [EnumDataType(typeof(Tipo))]
 
         public Tipo tipo { get; set; }
+        public int StockMinimo { get; set; }
     }
 }
