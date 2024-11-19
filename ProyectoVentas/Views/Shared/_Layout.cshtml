@@ -13,19 +13,20 @@
     <header>
         <nav>
             <div class="container-fluid nav">
-                <a asp-area="" asp-controller="prendas" asp-action="tarjetas">Home</a>
-                <div>
-                    <a asp-area="" asp-controller="Prendas" asp-action="Index">Prendas</a>
-                </div>
-                <div>
-                    <a asp-area="" asp-controller="Reposicion" asp-action="Index">Reposicion</a>
-                </div>
-                <div>
-                    <a asp-area="" asp-controller="NotificacionStock" asp-action="Index">Notificaciones</a>
-                </div>
+                <a>
+                    <a asp-area="" asp-controller="prendas" asp-action="tarjetas">Home</a>
+                    <div>
+                        <a asp-area="" asp-controller="Prendas" asp-action="Index">Prendas</a>
+                    </div>
+                    <div>
+                        <a asp-area="" asp-controller="Reposicion" asp-action="Index">Reposicion</a>
+                    </div>
+                    <div>
+                        <a asp-area="" asp-controller="NotificacionStock" asp-action="Index">Notificaciones</a>
+                    </div>
             </div>
         </nav>
-        <a asp-area = "" asp-controller="prendas" asp-action="carrito">
+        <a asp-area="" asp-controller="prendas" asp-action="carrito">
             <div>
                 <i class="bi bi-cart-fill"></i>
                 <div class="counter-cart" id="counterCart">0</div>
@@ -41,7 +42,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-<script>
+    <script>
         let carritoMemoria = JSON.parse(localStorage.getItem("cartObjs"));
 
         carritoMemoria.forEach(function (prenda) {
@@ -52,6 +53,7 @@
                 e.preventDefault()
             });
         });
-</script>
+    </script>
 </body>
 </html>
+
