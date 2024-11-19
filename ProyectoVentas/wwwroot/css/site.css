@@ -13,7 +13,7 @@ a {
 
 body {
     font-family: Georgia, 'Times New Roman', Times, serif;
-    background-color: #1c2a29;
+    background-color: #ccc;
     /*  background-size: cover; /* Ajustar la imagen al tamaño de la pantalla */
     /*  background-repeat: no-repeat; /* No repetir la imagen */
 }
@@ -34,9 +34,9 @@ header {
     gap: 10px;
 }
 
-    .nav div {
-        margin-inline: 10px;
-    }
+.nav div {
+    margin-inline: 10px;
+}
 
 .bi-cart-fill {
     font-size: 40px;
@@ -75,11 +75,11 @@ header {
     text-align: center;
     padding-left: 20px;
     padding-right: 20px;
+    background-color:white;
 }
 
 .container {
     opacity: 0.6;
-    background-color: white;
     margin-top: 15px;
     padding: 30px;
 }
@@ -96,7 +96,7 @@ header {
 
 #carrito {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 20px;
 }
 
@@ -121,6 +121,7 @@ header {
     border-radius: 10px;
     margin: auto;
     margin-top: 20px;
+    background-color:white;
 }
 
 .btn-finalizar {
