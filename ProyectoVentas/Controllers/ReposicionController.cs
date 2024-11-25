@@ -91,7 +91,7 @@ namespace ProyectoVentas.Controllers
                     // Elimina todas las notificaciones encontradas
                     _context.NotificacionesStock.RemoveRange(notificacionAEliminar); 
                     await _context.SaveChangesAsync(); // Guarda los cambios
-                }
+                } 
 
                 //retorna la vista index
                 return RedirectToAction(nameof(Index));

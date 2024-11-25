@@ -22,6 +22,7 @@ namespace ProyectoVentas.Controllers
         // GET: NotificacionStock
         public async Task<IActionResult> Index()
         {
+
            //Guardo en la variable listaPrendas las prendas que estan por debajo de su stockMin
 
             var listaPrendas = _context.Prendas
@@ -45,13 +46,21 @@ namespace ProyectoVentas.Controllers
                 //Consulto si ya existe si la prenda ya existe en la tabla de NotificacionesStock
                 //para evitar duplicado cuando se hace click en Notificaciones(index)
 
+               // var existeNotificacionStock = _context.NotificacionesStock
+                 //    .Any(n => n.PrendaId == notificacionStock.PrendaId);
+
                 var existeNotificacionStock = _context.NotificacionesStock
-                     .Any(n => n.PrendaId == notificacionStock.PrendaId);
+                 .FirstOrDefault(n => n.PrendaId == notificacionStock.PrendaId);
 
 
-                //Si la prenda no existe en la tabla NotificacionesStock, la agrega a la misma
-                if (!existeNotificacionStock ) { 
+                //Si la prenda no existe en la tabla NotificacionesStock,
+                //la agrega a la misma
+                if (existeNotificacionStock == null)
+                {
                     _context.NotificacionesStock.Add(notificacionStock);
+                }
+                else {
+                    existeNotificacionStock.StockActual = notificacionStock.StockActual;
                 }
 
             }

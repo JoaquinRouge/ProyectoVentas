@@ -163,6 +163,7 @@ namespace ProyectoVentas.Controllers
                 if (producto != null && producto.stock >= pedido.cant)
                 {
                     producto.stock -= pedido.cant; // Resta la cantidad comprada del stock
+                    
                 }
                 else
                 {
