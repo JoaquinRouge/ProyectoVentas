@@ -2,6 +2,7 @@
 const carrito = document.getElementById("carrito");
 const cantProds = document.getElementById("prods");
 const total = document.getElementById("precio");
+const finalizar = document.getElementById("fin")
 
 // Clase Prenda:
 class Prenda {
@@ -60,6 +61,18 @@ let buscarPrenda = (id) => {
 function generarHtmlCarrito() {
     let carritoMemoria = JSON.parse(localStorage.getItem("cartObjs")) || []; // Trae el carrito en localStorage, o inicializa como array vacío si es null.
     let arrDibujado = []; // Array de los elementos que actualmente se muestran en pantalla.
+
+
+    //Este condicional chequea si el carrito se encuentra vacio y dado el caso agrega un cartel que lo indica.
+    if (carritoMemoria.length == 0) {
+        finalizar.remove()
+        carrito.innerHTML +=
+            `
+                <div>
+                    <p>El carrito se encuentra vacío</p>
+                </div>
+            `
+    }
     carritoMemoria.forEach(function (prenda) {
         // Chequea si la prenda que está por dibujar ya está dibujada y dado el caso no la dibuja.
         if (!arrDibujado.includes(prenda.id)) {
