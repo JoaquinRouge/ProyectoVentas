@@ -160,6 +160,8 @@ namespace ProyectoVentas.Controllers
             foreach (var pedido in pedidos)
             {
                 var producto = _context.Prendas.FirstOrDefault(p => p.Id == pedido.IdProd);
+                _context.Add(pedido);
+
                 if (producto != null && producto.stock >= pedido.cant)
                 {
                     producto.stock -= pedido.cant; // Resta la cantidad comprada del stock
